@@ -23,14 +23,14 @@ jobs:
       uses: docker/login-action@v1
       with:
         registry: https://imetrixtest.azurecr.io/
-        username: ${{ secrets.AzureAppService_ContainerUsername_e8aa13314c4f4a59bf38df3b666f06e0 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_3f0bcbdea07442ac82f570640412783c }}
+        username: ${{ secrets.AzureAppService_ContainerUsername_2a91ad349f7a418b839713fa7e3d1690 }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_764908adf1774019b74974c44af1d568 }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: imetrixtest.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_e8aa13314c4f4a59bf38df3b666f06e0 }}/api-auth-imetrix:${{ github.sha }}
+        tags: imetrixtest.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_2a91ad349f7a418b839713fa7e3d1690 }}/api-auth-imetrix:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'imetrix-api-auth'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_c57cd0fb066449b185783bfc4063c059 }}
-        images: 'imetrixtest.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_e8aa13314c4f4a59bf38df3b666f06e0 }}/api-auth-imetrix:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_36c5d7eec87f4bebad7ea54f4f684077 }}
+        images: 'imetrixtest.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_2a91ad349f7a418b839713fa7e3d1690 }}/api-auth-imetrix:${{ github.sha }}'
