@@ -11,7 +11,7 @@ class AppSettings:
     PROJECT_NAME = "ISA_2 - API Authentication"
     PROJECT_VERSION = "0.0.1"
     PROJECT_DESCRIPTION = "API para manejar authenticacion del usuario y generacion del token"
-    URL_PREFIX="/authentication/api/v1"
+    URL_PREFIX="/api/v1"
 
     #Auth settings
     PROJECT_SECRET_KEY= os.getenv('SECRET_KEY')
