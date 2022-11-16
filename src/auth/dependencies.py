@@ -7,7 +7,7 @@ async def validate_token(token: str):
     try:
         return jwt.decode(token, settings.PROJECT_SECRET_KEY, algorithms=[settings.PROJECT_PROJECT_ALGORITHM])
     except JWTError:
-        raise credentials_exception
+        return False
 
 def verify_user_by_id(id):
     if not get_user_profile(id):

@@ -1,6 +1,6 @@
 from datetime import timedelta
 from src.auth.schemas import Introspection, Login, Token, UserProfile, UpdateUserProfile
-from fastapi import APIRouter, Request, Depends
+from fastapi import APIRouter, Request, Depends, status
 import src.auth.service as service
 from src.config.setup import settings
 from src.auth.exceptions import incorrect_crendentilas_exception, credentials_exception
@@ -38,6 +38,10 @@ async def validate_token(request: Request):
 async def validate_token_post_parametter(token: str):
     if await dependencies.validate_token(token):
         return { "active": True, "tokenstate": True, "tokenstate": { "active": True } }
+
+@auth.post("/introspection3", status_code=status.HTTP_401_UNAUTHORIZED)
+async def validate_token_post_data_401(data: Introspection):
+    raise credentials_exception
 
 @auth.post("/introspection2")
 async def validate_token_post_data(data: Introspection):
