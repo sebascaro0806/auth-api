@@ -23,3 +23,6 @@ class UpdateUserProfile(BaseModel):
     last_name: str
     photo: str
     password: str
+
+class Introspection(BaseModel):
+    token: str
