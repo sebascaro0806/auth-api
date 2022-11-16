@@ -43,3 +43,4 @@ async def validate_token_post_parametter(token: str):
 async def validate_token_post_data(data: Introspection):
     if await dependencies.validate_token(data.token):
         return { "active": True, "tokenstate": True, "tokenstate": { "active": True } }
+    return  { "active": False, "tokenstate": False, "tokenstate": { "active": False } }
