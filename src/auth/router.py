@@ -33,3 +33,7 @@ async def validate_token(request: Request):
     if not token_header:
         raise credentials_exception
     return await dependencies.validate_token(token_header.split(" ")[1])
+
+@auth.post("/introspection")
+async def validate_token(token: str):
+    return await dependencies.validate_token(token)
