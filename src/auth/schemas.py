@@ -1,12 +1,7 @@
 from pydantic import BaseModel
-from typing import Union
-
 class Token(BaseModel):
     access_token: str
     token_type: str
-
-class TokenData(BaseModel):
-    username: Union[str, None] = None
 
 class Login(BaseModel):
     email: str
@@ -24,5 +19,7 @@ class UpdateUserProfile(BaseModel):
     photo: str
     password: str
 
-class Introspection(BaseModel):
-    token: str
+class TokenData(BaseModel):
+    sub: str = ""
+    exp: int = 0
+    active: bool

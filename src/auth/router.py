@@ -1,9 +1,9 @@
 from datetime import timedelta
-from src.auth.schemas import Introspection, Login, Token, UserProfile, UpdateUserProfile
-from fastapi import APIRouter, Request, Depends, status
+from src.auth.schemas import Login, Token, UserProfile, UpdateUserProfile,TokenData
+from fastapi import APIRouter, Form, Depends
 import src.auth.service as service
 from src.config.setup import settings
-from src.auth.exceptions import incorrect_crendentilas_exception, credentials_exception
+from src.auth.exceptions import incorrect_crendentilas_exception
 import src.auth.dependencies as dependencies
 
 auth = APIRouter()
@@ -27,24 +27,6 @@ async def get_user_profile(id: str):
 async def update_user_profile(id: str, form_data: UpdateUserProfile):
     return service.update_user_profile(id, form_data)
 
-@auth.get("/validate-token")
-async def validate_token(request: Request):
-    token_header = request.headers.get('authorization')
-    if not token_header:
-        raise credentials_exception
-    return await dependencies.validate_token(token_header.split(" ")[1])
-
-@auth.post("/introspection")
-async def validate_token_post_parametter(token: str):
-    if await dependencies.validate_token(token):
-        return { "active": True, "tokenstate": True, "tokenstate": { "active": True } }
-
-@auth.post("/introspection3", status_code=status.HTTP_401_UNAUTHORIZED)
-async def validate_token_post_data_401(data: Introspection):
-    raise credentials_exception
-
-@auth.post("/introspection2")
-async def validate_token_post_data(data: Introspection):
-    if await dependencies.validate_token(data.token):
-        return { "active": True, "tokenstate": True, "tokenstate": { "active": True } }
-    return  { "active": False, "tokenstate": False, "tokenstate": { "active": False } }
+@auth.post("/introspection", response_model=TokenData)
+async def introspection(token: str = Form()):
+    return await dependencies.validate_token(token)
