@@ -36,4 +36,5 @@ async def validate_token(request: Request):
 
 @auth.post("/introspection")
 async def validate_token(token: str):
-    return await dependencies.validate_token(token)
+    if await dependencies.validate_token(token):
+        return { "active": True, "tokenstate": True, "tokenstate": { "active": True } }
