@@ -11,4 +11,4 @@ app = FastAPI(
     openapi_url=settings.URL_PREFIX + '/openapi.json'
 )
 
-app.include_router(auth, prefix="/authentication/api/v1")
+app.include_router(auth, prefix=settings.URL_PREFIX)
