@@ -8,6 +8,7 @@ users = Table("users", meta_data,
             Column("password", String, nullable=False),
             Column("first_name", String, nullable=False),
             Column("last_name", String, nullable=False),
+            Column("state", String, nullable=False),
             Column("photo", String, nullable=True)
         )
 
